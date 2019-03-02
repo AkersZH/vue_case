@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.bootcss.com/vue/2.6.6/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="add()">add</button>
+            <div id="div" style="height: 500px;overflow: auto;">            
+              <ul>
+                <li v-for="item in list">
+                    {{item}}
+                </li>
+              </ul>
+            </div>
+
+        </div>
+    </body>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'aaa',
+                list: [1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5,1,2,3,4,5]
+            },
+            created () {
+                alert('created')
+            },
+            mounted () {
+                document.getElementById('div').addEventListener('scroll', this.add)
+            },
+            methods: {
+                add () {
+                    let nextList = [6,7,8,9,10]
+                    let scrollTop = document.getElementById('div').scrollTop
+                    let clientHeight  = document.getElementById('div').clientHeight 
+                    let scrollHeight = document.getElementById('div').scrollHeight
+                    console.log(scrollTop, clientHeight, scrollHeight)
+                    if (scrollTop + clientHeight == scrollHeight) {
+                        this.list = this.list.concat(nextList);
+                    }
+                }
+            }
+        })
+    </script>
+    <style>
+    </style>
+</html>
